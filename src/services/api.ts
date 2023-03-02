@@ -1,8 +1,10 @@
 import axios from "axios";
 import { getToken } from "./auth";
 
+const url = import.meta.env.VITE_API_URL;
+
 const api = axios.create({
-  baseURL: import.meta.env.REACT_APP_BASE_URL,
+  baseURL: url,
 });
 
 api.interceptors.request.use(async (config) => {
