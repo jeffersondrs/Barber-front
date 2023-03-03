@@ -10,19 +10,21 @@ const isLoggedIn: boolean = false;
 export default function Home(): JSX.Element {
   const [isLogged, setIsLogged] = useState(isLoggedIn);
 
-  const { isLoading, error, data } = useQuery("barbers", () =>
-    axios
-      .get(`${url}/master/staffs`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        res.data.data.staff;
-        setIsLogged(true);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => console.log("finally"))
+  const { isLoading, error, data } = useQuery(
+    "barbers",
+    async () =>
+      await axios
+        .get(`${url}master/staffs`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          res.data.data.staff;
+          setIsLogged(true);
+        })
+        .catch((err) => console.log(err))
+        .finally(() => console.log("logged"))
   );
 
   if (isLoading) return <div>Loading...</div>;
