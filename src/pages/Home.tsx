@@ -42,14 +42,12 @@ export default function Home(): JSX.Element {
     }
   }, [data]);
 
-  console.log(staff);
-
   if (isLoading) return <Loading />;
 
   if (error) return <Error />;
 
   return (
-    <>
+    <div className="w-full h-full flex flex-col justify-center items-center flex-wrap">
       {isLoggedIn ? (
         <div className="w-full h-screen flex flex-col justify-between items-center">
           <nav className="w-full h-20 border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5">
@@ -79,17 +77,15 @@ export default function Home(): JSX.Element {
               </div>
             </div>
           )}
-          <div className="flex flex-row w-full justify-center items-center">
+          <div className="flex flex-row flex-wrap justify-center items-center">
             {staff.map((staff) => {
               return (
-                <div>
-                  <div className="w-96 h-48 bg-slate-300 shadow-xl m-5 rounded-xl flex flex-col items-center justify-evenly text-black">
-                    <h1 className="text-4xl w-72 text-center">{staff.name}</h1>
-                    <p className="text-2xl w-72 text-center ">{staff.email}</p>
-                    <p className="capitalize">Categoria: {staff.role}</p>
-                    <p className="text-blue-700">{staff.photo}</p>
-                    <p>Criado em: {staff.createdAt}</p>
-                  </div>
+                <div className="h-48 bg-slate-300 shadow-xl m-5 rounded-xl flex flex-col items-center justify-evenly text-black flex-wrap p-5">
+                  <h1 className="text-4xl w-72 text-center">{staff.name}</h1>
+                  <p className="text-2xl w-72 text-center ">{staff.email}</p>
+                  <p className="capitalize">Categoria: {staff.role}</p>
+                  <p className="text-blue-700">{staff.photo}</p>
+                  <p>Criado em: {staff.createdAt}</p>
                 </div>
               );
             })}
@@ -114,6 +110,6 @@ export default function Home(): JSX.Element {
           <Footer />
         </div>
       )}
-    </>
+    </div>
   );
 }
