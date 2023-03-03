@@ -16,7 +16,9 @@ export default function Home(): JSX.Element {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then((res) => res.data.data.staff)
+      .then((res) => {
+        return res.data.data.staff;
+      })
       .catch((err) => console.log(err))
       .finally(() => setIsLoggedIn(true))
   );
