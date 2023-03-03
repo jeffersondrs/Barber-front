@@ -7,7 +7,7 @@ import Footer from "../components/footer/Footer";
 const url = import.meta.env.VITE_API_URL;
 const isLoggedIn: boolean = false;
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const [isLogged, setIsLogged] = useState(isLoggedIn);
 
   const { isLoading, error, data } = useQuery("barbers", () =>
@@ -25,8 +25,7 @@ export default function Home() {
       .finally(() => console.log("finally"))
   );
 
-  if (isLoading) return "Loading...";
-
+  if (isLoading) return <div>Loading...</div>;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
