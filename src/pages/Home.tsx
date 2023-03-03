@@ -10,12 +10,11 @@ import Error from "../components/error/Error";
 const url = import.meta.env.VITE_API_URL;
 
 type Staff = {
-  id: number;
-  name: string;
+  createdAt: string;
   email: string;
-  password: string;
-  created_at: string;
-  updated_at: string;
+  name: string;
+  photo: string;
+  role: string;
 };
 
 export default function Home(): JSX.Element {
@@ -43,6 +42,8 @@ export default function Home(): JSX.Element {
     }
   }, [data]);
 
+  console.log(staff);
+
   if (isLoading) return <Loading />;
 
   if (error) return <Error />;
@@ -69,22 +70,30 @@ export default function Home(): JSX.Element {
           </p>
           <p>Por enquanto, vamos ver os dados do servidor:</p>
           {isSuccess && (
-            <div className="bg-black/30 w-96 flex flex-row">
-              <h1 className="text-xl w-full text-center">
+            <div className="flex flex-row justify-center items-center flex-wrap">
+              <h1 className="text-xl font-bold w-full text-center border-t-2 border-solid border-violet-800 border-b-2  p-2 m-5">
                 Funcionários cadastrados
               </h1>
-              <p className="text-2xl w-72 text-center">{staff.length}</p>
+              <div className="text-lg w-12 h-12 text-center rounded-full border border-solid border-violet-700 flex flex-col justify-center items-center">
+                {staff.length}
+              </div>
             </div>
           )}
-
-          {staff.map((staff) => {
-            return (
-              <div className="w-56 h-96 bg-slate-300 shadow-xl m-5 rounded-xl flex flex-col items-center justify-evenly">
-                <h1 className="text-4xl w-72 text-center">{staff.name}</h1>
-                <p className="text-2xl w-72 text-center">{staff.email}</p>
-              </div>
-            );
-          })}
+          <div className="flex flex-row w-full justify-center items-center">
+            {staff.map((staff) => {
+              return (
+                <div>
+                  <div className="w-96 h-48 bg-slate-300 shadow-xl m-5 rounded-xl flex flex-col items-center justify-evenly text-black">
+                    <h1 className="text-4xl w-72 text-center">{staff.name}</h1>
+                    <p className="text-2xl w-72 text-center ">{staff.email}</p>
+                    <p className="capitalize">Categoria: {staff.role}</p>
+                    <p className="text-blue-700">{staff.photo}</p>
+                    <p>Criado em: {staff.createdAt}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
           <Footer />
         </div>
       ) : (
