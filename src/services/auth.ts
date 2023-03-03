@@ -14,7 +14,7 @@ export const request = async ({ email, password }: LoginProps) => {
   return response.data;
 };
 
-export const isAuthenticated = () => {
+export const headerAuth = () => {
   const token = localStorage.getItem("token");
   return token !== null;
 };
@@ -26,4 +26,9 @@ export const logout = () => {
 export const getToken = () => {
   const token = localStorage.getItem("token");
   return token;
+};
+
+export const isAuthenticated = () => {
+  const token = localStorage.getItem("token");
+  return token !== null;
 };

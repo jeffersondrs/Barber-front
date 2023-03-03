@@ -30,31 +30,40 @@ export default function Form() {
     };
 
     const response = await request(requestlog);
+
+    if (response) {
+      navigate("/home");
+    } else {
+      setError("Invalid credentials");
+    }
   };
 
   return (
-    <form className="w-full max-w-sm p-5" onSubmit={handleSubmit}>
-      <div className="flex items-center border-b-2 border-teal-500 py-2">
+    <form
+      className="w-full max-w-sm p-5 bg-slate-300 shadow-xl rounded-xl transition-all"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex items-center border-b-2 border-teal-500 py-2 my-2">
         <input
-          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder:text-black"
           type="text"
           placeholder="e-mail"
           aria-label="e-mail"
           ref={emailRef}
         />
       </div>
-      <div className="flex items-center border-b-2 border-teal-500 py-2">
+      <div className="flex items-center border-b-2 border-teal-500 py-2 my-2">
         <input
-          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder:text-black"
           type="password"
           placeholder="password"
           aria-label="password"
           ref={passwordRef}
         />
       </div>
-      <div className="flex flex-col justify-center items-center p-2">
+      <div className="flex flex-col justify-center items-center p-2 m-3">
         <input
-          className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+          className="flex-shrink-0 bg-teal-500 transition-all hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold"
           type="submit"
           value="Login"
         />
