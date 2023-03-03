@@ -4,28 +4,42 @@ import Footer from "../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { logout } from "../services/auth";
-import Fetcher from "../components/fetchdata/FetchData";
 import Loading from "../components/loading/Loading";
 import Error from "../components/error/Error";
 
 const url = import.meta.env.VITE_API_URL;
 
+type Staff = {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export default function Home(): JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [staff, setStaff] = useState<Staff[]>([]);
 
-  const { isLoading, error, data } = useQuery("staff", async () => {
-    const { data } = await axios.get(`${url}master/staffs`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    return data;
+  const { isLoading, error, data, isSuccess } = useQuery("staff", async () => {
+    const response = await axios
+      .get(`${url}master/staffs`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        return response.data.data;
+      });
+    return response;
   });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    if (token && data) {
       setIsLoggedIn(true);
+      setStaff(data.staff);
     }
   }, [data]);
 
@@ -54,7 +68,23 @@ export default function Home(): JSX.Element {
             Em breve irei colocar os endpoints também para facilitar nossa vida.
           </p>
           <p>Por enquanto, vamos ver os dados do servidor:</p>
-          {}
+          {isSuccess && (
+            <div className="bg-black/30 w-96 flex flex-row">
+              <h1 className="text-xl w-full text-center">
+                Funcionários cadastrados
+              </h1>
+              <p className="text-2xl w-72 text-center">{staff.length}</p>
+            </div>
+          )}
+
+          {staff.map((staff) => {
+            return (
+              <div className="w-56 h-96 bg-slate-300 shadow-xl m-5 rounded-xl flex flex-col items-center justify-evenly">
+                <h1 className="text-4xl w-72 text-center">{staff.name}</h1>
+                <p className="text-2xl w-72 text-center">{staff.email}</p>
+              </div>
+            );
+          })}
           <Footer />
         </div>
       ) : (
