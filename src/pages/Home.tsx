@@ -1,34 +1,37 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useQuery } from "react-query";
 import Footer from "../components/footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { logout } from "../services/auth";
+import Fetcher from "../components/fetchdata/FetchData";
+import Loading from "../components/loading/Loading";
+import Error from "../components/error/Error";
 
 const url = import.meta.env.VITE_API_URL;
 
 export default function Home(): JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const { isLoading, error, data } = useQuery("barbers", () =>
-    axios
-      .get(`${url}/master/staffs`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        return res.data.data.staff;
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoggedIn(true))
-  );
+  const { isLoading, error, data } = useQuery("staff", async () => {
+    const { data } = await axios.get(`${url}master/staffs`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return data;
+  });
 
-  if (isLoading) return <div>Loaading...</div>;
-  if (error) return <>Faça login para acessar essa página</>;
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, [data]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-  };
+  if (isLoading) return <Loading />;
+
+  if (error) return <Error />;
 
   return (
     <>
@@ -36,8 +39,8 @@ export default function Home(): JSX.Element {
         <div className="w-full h-screen flex flex-col justify-between items-center">
           <nav className="w-full h-20 border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5">
             <h1 className="text-4xl">Barber</h1>
-            <Link to="/" onClick={handleLogout}>
-              <button className="flex-shrink-0 bg-teal-500 transition-all hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
+            <Link to="/" onClick={logout}>
+              <button className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
                 Logout
               </button>
             </Link>
@@ -51,25 +54,7 @@ export default function Home(): JSX.Element {
             Em breve irei colocar os endpoints também para facilitar nossa vida.
           </p>
           <p>Por enquanto, vamos ver os dados do servidor:</p>
-          <div className="h-full w-full">
-            {data.map((barber: any) => {
-              return (
-                <div
-                  className="h-56 w-80 flex flex-col  justify-center items-start p-5 rounded-xl shadow-xl"
-                  key={barber.id}
-                >
-                  <h1 className="text-xl font-bold text-center w-full">
-                    {barber.name}
-                  </h1>
-                  <p className="text-lg">{barber.email}</p>
-                  <p className="text-lg">{barber.photo}</p>
-                  <p className="text-lg">{barber.role}</p>
-                  <p className="text-lg">{barber.createdAt}</p>
-                  <p className="text-lg">{barber._id}</p>
-                </div>
-              );
-            })}
-          </div>
+          {}
           <Footer />
         </div>
       ) : (
