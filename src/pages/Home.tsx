@@ -24,7 +24,7 @@ export default function Home(): JSX.Element {
 
   const { isLoading, error, data, isSuccess } = useQuery("staff", async () => {
     const response = await axios
-      .get(`${url}/master/staffs`, {
+      .get(`${url}master/staffs`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
