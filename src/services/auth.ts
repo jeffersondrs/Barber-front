@@ -3,16 +3,14 @@ import api from "./api";
 type LoginProps = {
   email: string;
   password: string;
-  role: string;
 };
 
 export const token: string = "token";
 
-export const request = async ({ email, password, role }: LoginProps) => {
+export const request = async ({ email, password }: LoginProps) => {
   const response = await api.post("/master/login", { email, password });
   localStorage.setItem("token", response.data.token);
-  localStorage.setItem("role", role);
-  
+  localStorage.setItem("role", response.data.role);
   return response.data;
 };
 
@@ -29,6 +27,11 @@ export const getToken = () => {
   const token = localStorage.getItem("token");
   return token;
 };
+
+export const getRole = () => {
+  const role = localStorage.getItem("role");
+  return role;
+}
 
 export const isAuthenticated = () => {
   const token = localStorage.getItem("token");

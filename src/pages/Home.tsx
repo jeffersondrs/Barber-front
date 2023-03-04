@@ -3,7 +3,7 @@ import axios from "axios";
 import Footer from "../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { logout } from "../services/auth";
+import { logout, getRole } from "../services/auth";
 import Loading from "../components/loading/Loading";
 import Error from "../components/error/Error";
 
@@ -59,7 +59,6 @@ export default function Home(): JSX.Element {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        
       })
       .then((response) => {
         return response.data.data;
@@ -68,6 +67,7 @@ export default function Home(): JSX.Element {
   };
 
   if (isLoading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center flex-wrap">
