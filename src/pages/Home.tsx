@@ -59,6 +59,7 @@ export default function Home(): JSX.Element {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        
       })
       .then((response) => {
         return response.data.data;
