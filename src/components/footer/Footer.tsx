@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-transparent h-20 flex justify-evenly items-center py-10">
+    <footer className="bg-transparent flex justify-evenly items-center">
       <p>Copyright &copy;</p>
-      <p className="text-black">Barber 2023</p>
+      <p className="text-white">Barber 2023</p>
       <p className="mx-3">
         Desenvolvidor com amor
         <span className="mx-2">

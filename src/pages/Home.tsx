@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import Footer from "../components/footer/Footer";
 import { useEffect, useState } from "react";
@@ -75,102 +75,107 @@ export default function Home(): JSX.Element {
   console.log(error);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center flex-wrap">
-      {isLoggedIn && (
-        <div className="w-full h-screen flex flex-col justify-between items-center">
-          <nav className="w-full h-20 border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5">
-            <h1 className="text-4xl">Barber</h1>
-            <Link to="/" onClick={logout}>
-              <button className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
-                Logout
-              </button>
-            </Link>
-          </nav>
-          <h1 className="text-4xl m-10">Bem vindo ao admin da Barbearia</h1>
-          <p className="text-lg p-2">
-            Aqui teremos rotas para serem ilustradas, já que todos os dados do
-            servidor serão administrados por este dashboard.
-          </p>
-          <p className="p-2 text-base">
-            Em breve irei colocar os endpoints também para facilitar nossa vida.
-          </p>
-          <p className="p-2">Por enquanto, vamos ver os dados do servidor:</p>
-          {isSuccess && (
-            <div className="flex flex-row justify-center items-center flex-wrap my-5">
-              <h1 className="text-xl font-bold w-full text-center border-solid border-violet-800 border-b-4 border-r border-l p-2 m-5 shadow-md border-t border-t-slate-400 rounded-bl-xl rounded-tr-xl">
-                Funcionários cadastrados
-              </h1>
-              <div className="text-lg w-12 h-12 text-center rounded-full border border-solid border-violet-700 flex flex-col justify-center items-center">
-                {staff.length}
+    <>
+      <div className="w-full h-full flex flex-colitems-center flex-wrap">
+        {isLoggedIn && (
+          <div className="w-full h-screen flex flex-col justify-between items-center">
+            <nav className="w-full border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5 flex-wrap">
+              <h1 className="text-4xl">Barber</h1>
+              <Link to="/" onClick={logout}>
+                <button className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
+                  Logout
+                </button>
+              </Link>
+            </nav>
+            <h1 className="text-4xl m-10">Bem vindo ao admin da Barbearia</h1>
+            <p className="text-lg p-2">
+              Aqui teremos rotas para serem ilustradas, já que todos os dados do
+              servidor serão administrados por este dashboard.
+            </p>
+            <p className="p-2 text-base">
+              Em breve irei colocar os endpoints também para facilitar nossa
+              vida.
+            </p>
+            <p className="p-2">Por enquanto, vamos ver os dados do servidor:</p>
+            {isSuccess && (
+              <div className="flex flex-row justify-center items-center flex-wrap my-5">
+                <h1 className="text-xl font-bold w-full text-center border-solid border-violet-800 border-b-4 border-r border-l p-2 m-5 shadow-md border-t border-t-slate-400 rounded-bl-xl rounded-tr-xl">
+                  Funcionários cadastrados
+                </h1>
+                <div className="text-lg w-12 h-12 text-center rounded-full border border-solid border-violet-700 flex flex-col justify-center items-center">
+                  {staff.length}
+                </div>
               </div>
-            </div>
-          )}
-          <div className="w-full flex flex-row flex-wrap justify-center items-center">
-            <ul className="w-full shadow-sm shadow-teal-700 flex flex-row items-center justify-between">
-              <li className="w-full h-full flex flex-row items-center justify-center flex-wrap">
-                <div className="flex flex-row justify-evenly items-center w-96 h-12">
-                  <div className="w-1/ 5 text-center px-1">
-                    <p className="mr-5 text-center">Foto</p>
-                  </div>
-                  <p className="w-3/4 text-center border-r-2">NAME</p>
-                </div>
-                <div className="flex flex-row justify-evenly items-center w-96 h-10 ">
-                  <p className="w-3/4 text-center border-r-2">EMAIL</p>
-                  <p className="w-1/4 text-center border-r-2">Função</p>
-                </div>
+            )}
+            <div className="w-full flex flex-row flex-wrap justify-center items-center">
+              <ul className="w-full h-14 text-xs shadow-sm flex flex-row bg-sky-300 items-center justify-between px-20">
+                <div className="flex flex-row w-full">
+                  <li className="w-full border-r px-5 flex flex-row justify-center uppercase">
+                    <p>Foto</p>
+                  </li>
+                  <li className="uppercase text-center border-r w-full">
+                    <p>Nome</p>
+                  </li>
+                  <li className="uppercase text-center border-r w-full">
+                    <p>E-mail</p>
+                  </li>
+                  <li className="uppercase text-center border-r w-full">
+                    <p>Função</p>
+                  </li>
 
-                <div className="flex flex-row justify-evenly items-center w-96 h-10">
-                  <p className="w-3/5 text-center border-r-2 px-10">
-                    CRIADO EM
-                  </p>
-                  <p className="w-24 uppercase text-center">AÇÂO</p>
+                  <li className="uppercase text-center border-r w-full">
+                    <p>Criado em</p>
+                  </li>
+                  <li className="uppercase text-center w-full">Ação</li>
                 </div>
-              </li>
-            </ul>
-            <ul className="w-full shadow-sm shadow-teal-700 flex flex-col items-center justify-between">
-              {staff.map((staff) => {
-                return (
-                  <li className="w-full h-full flex flex-row items-center justify-center flex-wrap" key={staff._id} >
-                    <div className="flex flex-row justify-evenly items-center w-96 h-12">
-                      <div>
+              </ul>
+              <ul className="w-full mb-5 py-1flex flex-col items-center justify-between px-10">
+                {staff.map((staff) => {
+                  return (
+                    <div className="flex flex-row w-full py-2 hover:bg-slate-300">
+                      <li className="w-full border-r px-5 flex flex-row justify-center">
                         <img
                           src={staff.photo}
                           alt="Foto do funcionário"
-                          className="w-10 h-10 border mr-5 object-cover"
+                          className="w-12 h-12 object-cover bg-center rounded-full"
                         />
-                      </div>
-                      <p className="w-3/4 text-start border-r-2 px-5">
-                        {staff.name}
-                      </p>
-                    </div>
-                    <div className="flex flex-row justify-evenly items-center w-96 h-10">
-                      <p className="w-3/4 text-start border-r-2 px-5">
-                        {staff.email}
-                      </p>
-                      <p className="w-1/4 text-start border-r-2 px-5">
-                        {staff.role}
-                      </p>
-                    </div>
+                      </li>
+                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                        <p>{staff.name}</p>
+                      </li>
+                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                        <p>{staff.email}</p>
+                      </li>
+                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                        <p>{staff.role}</p>
+                      </li>
 
-                    <div className="flex flex-row justify-evenly items-center w-96 h-10">
-                      <p className="w-3/5 text-start border-r-2 px-10">
-                        {staff.createdAt.split("T")[0].split("-").reverse().join("/")}
-                      </p>
-                      <button
-                        onClick={() => handleDelete(staff._id)}
-                        className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-24 uppercase font-bold"
-                      >
-                        Deletar
-                      </button>
+                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                        <p>
+                          {staff.createdAt
+                            .split("T")[0]
+                            .split("-")
+                            .reverse()
+                            .join("/")}
+                        </p>
+                      </li>
+                      <li className="uppercase text-center px-5 flex flex-row justify-center">
+                        <button
+                          onClick={() => handleDelete(staff._id)}
+                          className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold"
+                        >
+                          Deletar
+                        </button>
+                      </li>
                     </div>
-                  </li>
-                );
-              })}
-            </ul>
+                  );
+                })}
+              </ul>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
