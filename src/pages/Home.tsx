@@ -136,7 +136,7 @@ export default function Home(): JSX.Element {
                         <img
                           src={staff.photo}
                           alt="Foto do funcionário"
-                          className="w-10 h-10 border mr-5"
+                          className="w-10 h-10 border mr-5 object-cover"
                         />
                       </div>
                       <p className="w-3/4 text-start border-r-2 px-5">
@@ -154,7 +154,7 @@ export default function Home(): JSX.Element {
 
                     <div className="flex flex-row justify-evenly items-center w-96 h-10">
                       <p className="w-3/5 text-start border-r-2 px-10">
-                        {staff.createdAt}
+                        {staff.createdAt.split("T")[0].split("-").reverse().join("/")}
                       </p>
                       <button
                         onClick={() => handleDelete(staff._id)}
