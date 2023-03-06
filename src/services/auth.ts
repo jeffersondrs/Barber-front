@@ -11,6 +11,7 @@ export const request = async ({ email, password }: LoginProps) => {
   const response = await api.post("/master/login", { email, password });
   localStorage.setItem("token", response.data.token);
   localStorage.setItem("role", response.data.role);
+  localStorage.setItem("status", response.data.status);
   return response.data;
 };
 
@@ -22,6 +23,7 @@ export const headerAuth = () => {
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("role");
+  localStorage.removeItem("status");
 };
 
 export const getToken = () => {

@@ -7,10 +7,10 @@ import { queryClient } from "./services/queryAPI";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Router>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Router>
         <App />
-      </QueryClientProvider>
-    </Router>
+      </Router>
+    </QueryClientProvider>
   </React.StrictMode>
 );

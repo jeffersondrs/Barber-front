@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { request } from "../../services/auth";
 
 type RequestLogin = {
@@ -31,10 +31,8 @@ export default function Form() {
 
     if (response) {
       navigate("/home");
-    }
-
-    setError("Invalid credentials");  
-    
+    } 
+    setError("Invalid credentials");
   };
 
   return (
@@ -43,7 +41,7 @@ export default function Form() {
       onSubmit={handleSubmit}
     >
       {errorMessage && (
-        <div
+        <span
           className="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"
           role="alert"
         >
@@ -55,7 +53,7 @@ export default function Form() {
             <path d="M11.293 10l3.146-3.146a.5.5 0 0 0-.708-.708L10.586 9.293 7.44 6.146a.5.5 0 1 0-.708.708L9.879 10l-3.147 3.146a.5.5 0 0 0 .708.708L10.586 10.707l3.146 3.147a.5.5 0 0 0 .708-.708L11.293 10z" />
           </svg>
           <p>{errorMessage}</p>
-        </div>
+        </span>
       )}
 
       <div className="h-48 flex flex-col justify-evenly">

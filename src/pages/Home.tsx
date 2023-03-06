@@ -22,20 +22,21 @@ export default function Home(): JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [staff, setStaff] = useState<Staff[]>([]);
 
-  const { isLoading, error, data, isSuccess } = useQuery("staff", async () => {
-    const response = await axios
-      .get(`${url}master/staffs`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) setIsLoggedIn(true);
-
-        return response.data.data;
-      });
-    return response;
-  });
+  const { isLoading, isError, error, data, isSuccess } = useQuery(
+    "staff",
+    async () => {
+      const response = await axios
+        .get(`${url}master/staffs`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          return response.data.data;
+        });
+      return response;
+    }
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -70,6 +71,8 @@ export default function Home(): JSX.Element {
 
   if (isLoading) return <Loading />;
   if (error) return <Error />;
+
+  console.log(error);
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center flex-wrap">
@@ -127,10 +130,7 @@ export default function Home(): JSX.Element {
             <ul className="w-full shadow-sm shadow-teal-700 flex flex-col items-center justify-between">
               {staff.map((staff) => {
                 return (
-                  <li
-                    className="w-full h-full flex flex-row items-center justify-center py-2 flex-wrap"
-                    key={staff._id}
-                  >
+                  <li className="w-full h-full flex flex-row items-center justify-center flex-wrap" key={staff._id} >
                     <div className="flex flex-row justify-evenly items-center w-96 h-12">
                       <div>
                         <img
