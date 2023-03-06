@@ -30,6 +30,8 @@ export default function Home(): JSX.Element {
         },
       })
       .then((response) => {
+        if (response.status === 200) setIsLoggedIn(true);
+
         return response.data.data;
       });
     return response;
@@ -71,7 +73,7 @@ export default function Home(): JSX.Element {
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center flex-wrap">
-      {isLoggedIn ? (
+      {isLoggedIn && (
         <div className="w-full h-screen flex flex-col justify-between items-center">
           <nav className="w-full h-20 border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5">
             <h1 className="text-4xl">Barber</h1>
@@ -122,10 +124,13 @@ export default function Home(): JSX.Element {
                 </div>
               </li>
             </ul>
-            {staff.map((staff) => {
-              return (
-                <ul className="w-full shadow-sm shadow-teal-700 flex flex-row items-center justify-between">
-                  <li className="w-full h-full flex flex-row items-center justify-center flex-wrap">
+            <ul className="w-full shadow-sm shadow-teal-700 flex flex-col items-center justify-between">
+              {staff.map((staff) => {
+                return (
+                  <li
+                    className="w-full h-full flex flex-row items-center justify-center py-2 flex-wrap"
+                    key={staff._id}
+                  >
                     <div className="flex flex-row justify-evenly items-center w-96 h-12">
                       <div>
                         <img
@@ -159,14 +164,12 @@ export default function Home(): JSX.Element {
                       </button>
                     </div>
                   </li>
-                </ul>
-              );
-            })}
+                );
+              })}
+            </ul>
           </div>
           <Footer />
         </div>
-      ) : (
-        <Error />
       )}
     </div>
   );

@@ -37,8 +37,6 @@ export default function Form() {
     
   };
 
-  console.log(errorMessage);
-
   return (
     <form
       className="w-full max-w-sm p-5 bg-white shadow-xl transition-all xl:rounded-xl"

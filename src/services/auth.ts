@@ -21,6 +21,7 @@ export const headerAuth = () => {
 
 export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("role");
 };
 
 export const getToken = () => {
