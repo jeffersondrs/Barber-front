@@ -11,7 +11,7 @@ export default function Error() {
         <p className="text-2xl w-72 text-center">
           Faça seu login para utilizar o sistema!
         </p>
-        <Link to="/login">
+        <Link to="/">
           <button className="flex-shrink-0 bg-teal-500 transition-all hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
             Login
           </button>

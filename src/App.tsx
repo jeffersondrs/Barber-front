@@ -9,14 +9,14 @@ import { AuthProvider, AuthContext } from "./context/Auth";
 function App() {
   const Private = ({ children }: any) => {
     const { isAuthenticated } = useContext(AuthContext);
-    return isAuthenticated ? children : <Navigate to="/login" replace={true} />;
+    return isAuthenticated ? children : <Navigate to="/" replace={true} />;
   };
 
   return (
     <div className="App">
       <AuthProvider>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route
             path="/home"
             element={
