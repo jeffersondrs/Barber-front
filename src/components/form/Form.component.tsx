@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
-import { Route, useNavigate } from "react-router-dom";
+import React, { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { request } from "../../services/auth";
+import { AuthContext } from "../../context/Auth";
 
 type RequestLogin = {
   email: string;
@@ -13,26 +14,41 @@ export default function Form() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
     if (!email || !password) {
+      setError("Please fill all fields");
       return;
     }
 
-    const requestlog: RequestLogin = {
+    const data: RequestLogin = {
       email,
       password,
     };
 
-    const response = await request(requestlog);
+    try {
+      const response = await request(data);
+      if (response) {
+        setIsAuthenticated(true);
+        navigate("/home");
+      }
+    } catch (error) {
+      setError(
+        "Email or password is incorrect. Please try again or contact your administrator."
+      );
+    }
 
-    if (response) {
-      navigate("/home");
-    } 
-    setError("Invalid credentials");
+    setError(null);
+
+    emailRef.current!.value = "";
+    passwordRef.current!.value = "";
+
+    return;
   };
 
   return (
@@ -40,6 +56,8 @@ export default function Form() {
       className="w-full max-w-sm p-5 bg-white shadow-xl transition-all xl:rounded-xl"
       onSubmit={handleSubmit}
     >
+      <h1 className="text-2xl font-bold text-center">Login</h1>
+
       {errorMessage && (
         <span
           className="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"

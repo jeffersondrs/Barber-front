@@ -81,7 +81,7 @@ export default function Home(): JSX.Element {
           <div className="w-full h-screen flex flex-col justify-between items-center">
             <nav className="w-full border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5 flex-wrap">
               <h1 className="text-4xl">Barber</h1>
-              <Link to="/" onClick={logout}>
+              <Link to="/login" onClick={logout}>
                 <button className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
                   Logout
                 </button>
