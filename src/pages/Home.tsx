@@ -93,7 +93,7 @@ export default function Home(): JSX.Element {
       <div className="w-full flex flex-col justify-between items-center">
         {isLoggedIn && (
           <>
-            <section className="section__home">
+            <section id="section__home">
               <h1 className="text-4xl m-10 text-center">
                 Bem vindo ao admin da Barbearia
               </h1>
@@ -120,7 +120,9 @@ export default function Home(): JSX.Element {
               </div>
             )}
             <div className="w-full flex flex-row flex-wrap justify-center items-center h-full">
-              <div className="w-full text-xs shadow-sm flex flex-row bg-teal-300 items-center justify-between px-20 table__list">
+              <div className="w-full text-xs shadow-sm flex flex-row bg-teal-300 items-center justify-between px-20"
+              id="table__list"
+              >
                 <div className="flex flex-row w-full">
                   <div className="w-full border-r px-5 flex flex-row justify-center uppercase">
                     <p>Foto</p>
@@ -144,7 +146,8 @@ export default function Home(): JSX.Element {
                 {staff.map((staff) => {
                   return (
                     <li
-                      className="flex flex-row w-full py-2 hover:bg-slate-300 card__staff"
+                      className="flex flex-row w-full py-2 hover:bg-slate-30"
+                      id="card__staff"
                       key={staff._id}
                     >
                       <div className="w-full border-r px-5 flex flex-row justify-center">
@@ -176,7 +179,7 @@ export default function Home(): JSX.Element {
                       <div className="uppercase text-center px-5 flex flex-row justify-center">
                         <button
                           onClick={() => handleDelete(staff._id)}
-                          className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold"
+                          className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-28 uppercase font-bold"
                         >
                           Deletar
                         </button>
