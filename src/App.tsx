@@ -9,7 +9,11 @@ import "./App.scss"
 function App() {
   const Private = ({ children }: any) => {
     const { isAuthenticated } = useContext(AuthContext);
-    return isAuthenticated ? children : <Navigate to="/login" />;
+    return isAuthenticated ? (
+      children
+    ) : (
+      <Navigate to="/login" replace={true} />
+    );
   };
 
   return (
