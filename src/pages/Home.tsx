@@ -3,7 +3,6 @@ import axios from "axios";
 import Footer from "../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { logout } from "../context/Auth";
 import Loading from "../components/loading/Loading";
 import Error from "../components/error/Error";
 
@@ -37,12 +36,6 @@ export default function Home(): JSX.Element {
       return response;
     }
   );
-
-  const handleLogout = () => {
-    logout();
-    setIsLoggedIn(false);
-    window.location.reload();
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -85,14 +78,6 @@ export default function Home(): JSX.Element {
       <div className="w-full h-full flex flex-colitems-center flex-wrap">
         {isLoggedIn && (
           <div className="w-full h-screen flex flex-col justify-between items-center">
-            <nav className="w-full border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5 flex-wrap">
-              <h1 className="text-4xl">Barber</h1>
-              <Link to="/" onClick={handleLogout}>
-                <button className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
-                  Logout
-                </button>
-              </Link>
-            </nav>
             <h1 className="text-4xl m-10">Bem vindo ao admin da Barbearia</h1>
             <p className="text-lg p-2">
               Aqui teremos rotas para serem ilustradas, já que todos os dados do
