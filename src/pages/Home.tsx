@@ -21,7 +21,6 @@ type Staff = {
 export default function Home(): JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [staff, setStaff] = useState<Staff[]>([]);
-  const navigate = useNavigate();
 
   const { isLoading, isError, error, data, isSuccess } = useQuery(
     "staff",
@@ -42,7 +41,7 @@ export default function Home(): JSX.Element {
   const handleLogout = () => {
     logout();
     setIsLoggedIn(false);
-    navigate("/login");
+    window.location.reload();
   };
 
   useEffect(() => {
