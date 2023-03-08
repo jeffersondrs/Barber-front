@@ -14,7 +14,7 @@ interface Props {
 type MasterInfo = {
   name: string;
   email: string;
-  photo: string;
+  photo: number;
   role: string;
   _id: string;
   barbearia: string;
@@ -49,48 +49,44 @@ export default function Navegation(): JSX.Element {
     return response;
   });
 
+  const infos = Object.values(masterInfo);
+
   return (
     <>
       <nav className="w-full border-b-2 border-solid border-violet-700 bg-teal-900 shadow-lg flex justify-between items-center p-5 flex-wrap navegation__menu">
         <button data-text="Aswesome" className="button">
           <span className="actual-text">
-            {Object.keys(masterInfo).map((master, index) => {
-              return (
-                <p key={index}>
-                  {masterInfo[master].barbearia}
-                </p>
-              );
+            {infos.map((info) => {
+              return info.barbearia;
             })}
           </span>
           <span className="hover-text" data-hidden="true">
-            {Object.keys(masterInfo).map((master, index) => {
-              return (
-                <p key={index}>
-                  {masterInfo[master].barbearia}
-                </p>
-              );
+            {infos.map((info) => {
+              return info.barbearia;
             })}
           </span>
         </button>
         <div>
-          {Object.keys(masterInfo).map((master, index) => {
+          {infos.map((info) => {
             return (
               <div
                 className="flex flex-row p-2 justify-center items-center"
-                key={index}
+                key={info._id}
               >
                 <img
                   className="w-12 h-12 rounded-full mr-4"
-                  src={masterInfo[master].photo}
+                  src={`${info.photo}`}
                   alt="Avatar of Jonathan Reinink"
                 />
                 <div className="text-base font-medium flex flex-col justify-center items-end">
-                  <p className="text-white leading-none">
-                    {masterInfo[master].name}
-                  </p>
-                  <p className="text-white capitalize">
-                    {masterInfo[master].role}
-                  </p>
+                  <Link
+                    to="/profile"
+                    className="text-white hover:text-gray-300 text-base font-medium capitalize"
+                  >
+                    <p>{info.name}</p>
+
+                    <p>{info.role}</p>
+                  </Link>
                 </div>
               </div>
             );
