@@ -20,8 +20,22 @@ type User = {
   token: string;
 };
 
-export const request = async ({ email, password }: LoginProps) => {
+export const requestLogin = async ({ email, password }: LoginProps) => {
   const response = await api.post("/master/login", { email, password });
+
+  const user: User = {
+    status: response.data.status,
+    role: response.data.role,
+    token: response.data.token,
+  };
+  localStorage.setItem("token", user.token);
+  localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("id", response.data._id);
+  return user;
+};
+
+export const requestRegister = async ({ email, password }: LoginProps) => {
+  const response = await api.post("/master/register", { email, password });
 
   const user: User = {
     status: response.data.status,

@@ -2,18 +2,18 @@
     margin: 0;
     height: auto;
     background: transparent;
-    padding: 0;
-    border: none;
+    padding: 1px;
+    border: 1px solid rgb(255, 255, 255);
 }
 
 .button {
-    --border-right: 2px;
-    --text-stroke-color: hsl(242, 89%, 39%);
+    --border-right: 1px;
+    --text-stroke-color: hsl(0, 0%, 100%);
     --animation-color: #00f9e8;
     --fs-size: 3rem;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     font-size: var(--fs-size);
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: relative;
     text-transform: uppercase;
     color: transparent;
@@ -26,15 +26,28 @@
     content: attr(data-text);
     color: var(--animation-color);
     width: 0%;
-    inset: 0;
+    inset: 3px;
     border-right: var(--border-right) solid var(--animation-color);
     overflow: hidden;
     transition: 0.5s;
-    -webkit-text-stroke: 1px var(--text-stroke-color);
-    
+    -webkit-text-stroke: 0px var(--text-stroke-color);
+
 }
+
 .button:hover .hover-text {
     width: 100%;
     filter: drop-shadow(0 0 15px var(--animation-color));
-
 }
+
+@media (max-width: 640px) {
+    .navegation__menu {
+        .button{
+            display: none;
+        }
+
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+    

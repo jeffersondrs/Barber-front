@@ -8,7 +8,7 @@ import "./App.scss";
 import Navegation from "./components/navegation/Navegation";
 
 function App() {
-  const Private = ({ children }: any) => {
+  const Private = ({ children }: { children: JSX.Element }) => {
     const { isAuthenticated } = useContext(AuthContext);
     return isAuthenticated ? children : <Navigate to="/login" replace={true} />;
   };

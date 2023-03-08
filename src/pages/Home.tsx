@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Footer from "../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Loading from "../components/loading/Loading";
 import Error from "../components/error/Error";
+import "../assets/styles/home.style.scss";
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -36,6 +35,24 @@ export default function Home(): JSX.Element {
       return response;
     }
   );
+
+  const fetchUSers = async () => {
+    const response = await axios.get(`${url}master/staffs`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data.data;
+  };
+
+  const fetchServices = async () => {
+    const response = await axios.get(`${url}master/services`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data.data;
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -69,25 +86,29 @@ export default function Home(): JSX.Element {
   };
 
   if (isLoading) return <Loading />;
-  if (error) return <Error />;
-
-  console.log(error);
+  if (isError) return <Error />;
 
   return (
-    <>
-      <div className="w-full h-full flex flex-colitems-center flex-wrap">
+    <main className="w-full h-full flex flex-col items-center flex-wrap">
+      <div className="w-full flex flex-col justify-between items-center">
         {isLoggedIn && (
-          <div className="w-full h-screen flex flex-col justify-between items-center">
-            <h1 className="text-4xl m-10">Bem vindo ao admin da Barbearia</h1>
-            <p className="text-lg p-2">
-              Aqui teremos rotas para serem ilustradas, já que todos os dados do
-              servidor serão administrados por este dashboard.
-            </p>
-            <p className="p-2 text-base">
-              Em breve irei colocar os endpoints também para facilitar nossa
-              vida.
-            </p>
-            <p className="p-2">Por enquanto, vamos ver os dados do servidor:</p>
+          <>
+            <section className="section__home">
+              <h1 className="text-4xl m-10 text-center">
+                Bem vindo ao admin da Barbearia
+              </h1>
+              <p className="text-lg px-10 text-center">
+                Aqui teremos rotas para serem ilustradas, já que todos os dados
+                do servidor serão administrados por este dashboard.
+              </p>
+              <p className="px-2 text-base text-center">
+                Em breve irei colocar os endpoints também para facilitar nossa
+                vida.
+              </p>
+              <p className="px-2 text-center">
+                Por enquanto, vamos ver os dados do servidor:
+              </p>
+            </section>
             {isSuccess && (
               <div className="flex flex-row justify-center items-center flex-wrap my-5">
                 <h1 className="text-xl font-bold w-full text-center border-solid border-violet-800 border-b-4 border-r border-l p-2 m-5 shadow-md border-t border-t-slate-400 rounded-bl-xl rounded-tr-xl">
@@ -98,50 +119,52 @@ export default function Home(): JSX.Element {
                 </div>
               </div>
             )}
-            <div className="w-full flex flex-row flex-wrap justify-center items-center">
-              <ul className="w-full h-14 text-xs shadow-sm flex flex-row bg-sky-300 items-center justify-between px-20">
+            <div className="w-full flex flex-row flex-wrap justify-center items-center h-full">
+              <div className="w-full text-xs shadow-sm flex flex-row bg-teal-300 items-center justify-between px-20 table__list">
                 <div className="flex flex-row w-full">
-                  <li className="w-full border-r px-5 flex flex-row justify-center uppercase">
+                  <div className="w-full border-r px-5 flex flex-row justify-center uppercase">
                     <p>Foto</p>
-                  </li>
-                  <li className="uppercase text-center border-r w-full">
+                  </div>
+                  <div className="uppercase text-center border-r w-full">
                     <p>Nome</p>
-                  </li>
-                  <li className="uppercase text-center border-r w-full">
+                  </div>
+                  <div className="uppercase text-center border-r w-full">
                     <p>E-mail</p>
-                  </li>
-                  <li className="uppercase text-center border-r w-full">
+                  </div>
+                  <div className="uppercase text-center border-r w-full">
                     <p>Função</p>
-                  </li>
-
-                  <li className="uppercase text-center border-r w-full">
+                  </div>
+                  <div className="uppercase text-center border-r w-full">
                     <p>Criado em</p>
-                  </li>
-                  <li className="uppercase text-center w-full">Ação</li>
+                  </div>
+                  <div className="uppercase text-center w-full">Ação</div>
                 </div>
-              </ul>
+              </div>
               <ul className="w-full mb-5 py-1flex flex-col items-center justify-between px-10">
                 {staff.map((staff) => {
                   return (
-                    <div className="flex flex-row w-full py-2 hover:bg-slate-300">
-                      <li className="w-full border-r px-5 flex flex-row justify-center">
+                    <li
+                      className="flex flex-row w-full py-2 hover:bg-slate-300 card__staff"
+                      key={staff._id}
+                    >
+                      <div className="w-full border-r px-5 flex flex-row justify-center">
                         <img
                           src={staff.photo}
                           alt="Foto do funcionário"
                           className="w-12 h-12 object-cover bg-center rounded-full"
                         />
-                      </li>
-                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                      </div>
+                      <div className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
                         <p>{staff.name}</p>
-                      </li>
-                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                      </div>
+                      <div className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
                         <p>{staff.email}</p>
-                      </li>
-                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                      </div>
+                      <div className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
                         <p>{staff.role}</p>
-                      </li>
+                      </div>
 
-                      <li className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
+                      <div className="uppercase text-center border-r w-full flex flex-row justify-center items-center">
                         <p>
                           {staff.createdAt
                             .split("T")[0]
@@ -149,24 +172,23 @@ export default function Home(): JSX.Element {
                             .reverse()
                             .join("/")}
                         </p>
-                      </li>
-                      <li className="uppercase text-center px-5 flex flex-row justify-center">
+                      </div>
+                      <div className="uppercase text-center px-5 flex flex-row justify-center">
                         <button
                           onClick={() => handleDelete(staff._id)}
                           className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold"
                         >
                           Deletar
                         </button>
-                      </li>
-                    </div>
+                      </div>
+                    </li>
                   );
                 })}
               </ul>
             </div>
-            <Footer />
-          </div>
+          </>
         )}
       </div>
-    </>
+    </main>
   );
 }

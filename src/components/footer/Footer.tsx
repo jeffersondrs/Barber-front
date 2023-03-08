@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import "./footer.styles.scss";
 
 export default function Footer() {
   return (
-    <footer className="bg-transparent flex justify-evenly items-center">
+    <footer className="flex justify-center items-center py-12 bg-teal-900 text-white">
       <p>Copyright &copy;</p>
-      <p className="text-white">Barber 2023</p>
+      <p className="">Barber 2023</p>
       <p className="mx-3">
         Desenvolvidor com amor
         <span className="mx-2">
