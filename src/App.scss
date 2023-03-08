@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.text-login {
+    background: #18f3b1;
+    background: linear-gradient(to right, #18f3b1 27%, #4e5afb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

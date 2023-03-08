@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./auth";
+import { getToken } from "../context/Auth";
 
 const url = import.meta.env.VITE_API_URL;
 

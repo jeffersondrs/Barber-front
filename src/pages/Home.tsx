@@ -1,9 +1,9 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { logout, getRole } from "../services/auth";
+import { logout } from "../context/Auth";
 import Loading from "../components/loading/Loading";
 import Error from "../components/error/Error";
 
@@ -21,6 +21,7 @@ type Staff = {
 export default function Home(): JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [staff, setStaff] = useState<Staff[]>([]);
+  const navigate = useNavigate();
 
   const { isLoading, isError, error, data, isSuccess } = useQuery(
     "staff",
@@ -37,6 +38,12 @@ export default function Home(): JSX.Element {
       return response;
     }
   );
+
+  const handleLogout = () => {
+    logout();
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -81,7 +88,7 @@ export default function Home(): JSX.Element {
           <div className="w-full h-screen flex flex-col justify-between items-center">
             <nav className="w-full border-b-2 border-solid border-violet-700 bg-slate-300 shadow-lg flex justify-between items-center p-5 flex-wrap">
               <h1 className="text-4xl">Barber</h1>
-              <Link to="/" onClick={logout}>
+              <Link to="/" onClick={handleLogout}>
                 <button className="flex-shrink-0 bg-red-700 transition-all hover:bg-red-900 border-red-700 hover:border-red-900 text-sm border-4 text-white py-1 px-2 rounded w-36 uppercase font-bold">
                   Logout
                 </button>
