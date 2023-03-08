@@ -37,7 +37,7 @@ export default function Login() {
       className="w-full max-w-sm p-5 bg-white shadow-xl transition-all xl:rounded-xl"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-2xl font-bold text-center">Login</h1>
+      <h1 className="text-2xl font-bold text-center text-login">Login</h1>
 
       <div className="h-48 flex flex-col justify-evenly">
         <div className="flex items-center border-b-2 border-teal-500 py-2 my-2">
