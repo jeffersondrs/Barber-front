@@ -1,7 +1,7 @@
 import Footer from "../components/footer/Footer";
-import { useContext, useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, requestLogin } from "../context/Auth";
+import { requestLogin } from "../context/Auth";
 
 interface LoginProps {
   email: string;
@@ -10,7 +10,6 @@ interface LoginProps {
 
 export default function Login() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useContext(AuthContext);
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);

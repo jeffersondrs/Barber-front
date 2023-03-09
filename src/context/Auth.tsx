@@ -55,6 +55,7 @@ export const headerAuth = () => {
 export const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  localStorage.removeItem("id");
 };
 
 export const getToken = () => {
