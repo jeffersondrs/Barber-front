@@ -72,7 +72,7 @@ export const AuthContext = createContext({
 } as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -83,10 +83,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       if (user.status === "success") {
         setIsAuthenticated(true);
-        navegate("/");
+        navigate("/home");
       }
     }
-  }, [isAuthenticated, navegate]);
+  }, [isAuthenticated, navigate]);
   return (
     <AuthContext.Provider
       value={{

@@ -5,32 +5,31 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { useContext } from "react";
 import "./App.scss";
-import Navegation from "./components/navegation/Navegation";
+import Navigation from "./components/navegation/Navegation";
 
-function App() {
+function AuthenticatedApp() {
   const Private = ({ children }: { children: JSX.Element }) => {
     const { isAuthenticated } = useContext(AuthContext);
-    return isAuthenticated ? children : <Navigate to="/login" replace={true} />;
+    return isAuthenticated ? children : <Navigate to="/" replace={true} />;
   };
 
   return (
     <AuthProvider>
+      <Navigation />
       <Routes>
-        <Route path="/" element={<Navegation />}>
-          <Route
-            path="/"
-            element={
-              <Private>
-                <Home />
-              </Private>
-            }
-          />
-        </Route>
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/home"
+          element={
+            <Private>
+              <Home />
+            </Private>
+          }
+        />
+        <Route path="/" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   );
 }
 
-export default App;
+export default AuthenticatedApp;
