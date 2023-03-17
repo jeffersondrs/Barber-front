@@ -1,31 +1,26 @@
-import { AuthProvider, AuthContext } from "./context/Auth";
-import { Route, Routes, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
+import { AuthProvider } from "./context/Auth";
+import { Route, Routes } from "react-router-dom";
+import Staffs from "./pages/Staffs";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import { useContext } from "react";
 import "./App.scss";
 import Navigation from "./components/navegation/Navegation";
+import Home from "./pages/Home";
 
 function AuthenticatedApp() {
-  const Private = ({ children }: { children: JSX.Element }) => {
-    const { isAuthenticated } = useContext(AuthContext);
-    return isAuthenticated ? children : <Navigate to="/" replace={true} />;
-  };
 
   return (
     <AuthProvider>
       <Navigation />
       <Routes>
         <Route
-          path="/home"
+          path="/funcionarios"
           element={
-            <Private>
-              <Home />
-            </Private>
+            <Staffs />
           }
         />
         <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
